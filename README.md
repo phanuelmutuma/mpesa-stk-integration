@@ -1,8 +1,6 @@
 # MPESA Integration Guide (NodeJS with PHP)
 
-[![Gitter](https://img.shields.io/depfu/dependencies/:vcsType/:project+)](https://gitter.im/orbitdb/Lobby) [![Matrix](https://img.shields.io/badge/matrix-%23orbitdb%3Apermaweb.io-blue.svg)](https://riot.permaweb.io/#/room/#orbitdb:permaweb.io) 
-
-https://img.shields.io/github/commit-activity/w/phanuelmutuma/mpesa-stk-integration
+[![Commit Activity](https://img.shields.io/github/commit-activity/w/phanuelmutuma/mpesa-stk-integration)](https://img.shields.io/github/commit-activity/w/phanuelmutuma/mpesa-stk-integration) [![License](https://img.shields.io/github/license/phanuelmutuma/mpesa-stk-integration)](https://img.shields.io/github/license/phanuelmutuma/mpesa-stk-integration) 
 
 
 
