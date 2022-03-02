@@ -76,7 +76,7 @@ npm start
 
 In Postman, ensure you set the environment variables first
 
-![env_variable_postman](http://url/to/img.png)
+![env_variable_postman](https://github.com/phanuelmutuma/mpesa-stk-integration/blob/main/assets/Screenshot%202022-03-02%20114217.png)
  
 As our host machine acts as the server we use `http://localhost:3000/api/v1/initialize` as the url and set it as a `GET` request
 
@@ -86,11 +86,11 @@ For now you dont' have to worry about `Authentication` as it is already defined 
 
 If all goes well you should see this
 
-![response](http://url/to/img.png)
+![response](https://github.com/phanuelmutuma/mpesa-stk-integration/blob/main/assets/Screenshot%202022-03-02%20123407.png)
 
 and after a few seconds an stk push will be sent to your phone.
  
-![stk_push](http://url/to/img.png)
+![stk_push](https://github.com/phanuelmutuma/mpesa-stk-integration/blob/main/assets/54068026-b4d62880-4258-11e9-91e5-cac1942c0ad7.png)
 
 
 
