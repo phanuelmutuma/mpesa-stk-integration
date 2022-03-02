@@ -153,7 +153,7 @@ echo 'PhoneNumber =' .$json_data['Body']['stkCallback']['CallbackMetadata']['Ite
 ?>
 ```
 
-Aaannnd... Thats it.
+Aaaand... Thats it.
 
 
 ## Deployment and Integration
