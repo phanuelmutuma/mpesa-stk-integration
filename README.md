@@ -2,6 +2,10 @@
 
 [![Gitter](https://img.shields.io/depfu/dependencies/:vcsType/:project+)](https://gitter.im/orbitdb/Lobby) [![Matrix](https://img.shields.io/badge/matrix-%23orbitdb%3Apermaweb.io-blue.svg)](https://riot.permaweb.io/#/room/#orbitdb:permaweb.io) 
 
+https://img.shields.io/github/commit-activity/w/phanuelmutuma/mpesa-stk-integration
+
+
+
 > A guide for integrating MPESA API using Node JS and PHP
 
 This repository is meant to serve as an unofficial guide for how to set up the MPESA Daraja API for web and mobile apps. The official documentation can be found [`here`](https://developer.safaricom.co.ke/). The aim of this guide is to provide a much clear path to follow through as the official documentation can be quite hefty.
