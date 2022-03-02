@@ -1,4 +1,3 @@
-//GET Method
 const express = require("express");
 const superagent = require('superagent');
 
@@ -8,15 +7,18 @@ const initializeSTKQuery = async (req, res, next) => {
     try {
         const url = 'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest';
         const url_credentials = 'https://api.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
-        console.log("Prabably " + req.query.STK_APP_CONSUMER_KEY);
-        const auth = 'Basic ' + Buffer.from(req.query.STK_APP_CONSUMER_KEY + ':' + req.query.STK_APP_CONSUMER_SECRET).toString('base64');console.log(auth);
+        
+        const passkey = YOUR_PASSKEY_HERE;
+        
+        const auth = 'Basic ' + Buffer.from(req.query.STK_APP_CONSUMER_KEY + ':' + req.query.STK_APP_CONSUMER_SECRET).toString('base64');
         const response = await superagent.get(url_credentials).set('Authorization', auth);
-        const access_token = response.body.access_token;console.log(access_token);
-        let hours =  new Date().getHours().toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false});
+
+        const access_token = response.body.access_token;
 
         const timestamp = new Date().getFullYear() + ("0" + (new Date().getMonth() + 1)).slice(-2) + ("0" + new Date().getDate()).slice(-2) + ("0" + new Date().getHours()).slice(-2) + ("0" + new Date().getMinutes()).slice(-2) + ("0" + new Date().getSeconds()).slice(-2);
     
-        const password = req.query.STK_APP_SHORTCODE + "9d7b70296640414e9cd2f4679e5584b2acc0afdd38a3177db39972ba26ec1178" + timestamp;console.log(timestamp);
+        const password = req.query.STK_APP_SHORTCODE + passkey + timestamp;
+
         const password_hash = Buffer.from(password).toString('base64');
         const auth_header = 'Bearer ' + access_token;
         const headers = {
@@ -31,10 +33,10 @@ const initializeSTKQuery = async (req, res, next) => {
             "Timestamp": timestamp,
             "TransactionType": "CustomerPayBillOnline",
             "Amount": "1",
-            "PartyA": "254703289762",
+            "PartyA": "254712345678",
             "PartyB": req.query.STK_APP_SHORTCODE,
-            "PhoneNumber": "254703289762",
-            "CallBackURL": "https://investment.robustlimited.co.ke/index.php",
+            "PhoneNumber": "254712345678",
+            "CallBackURL": "https://domain.com/callback",
             "AccountReference": "Test Account",
             "TransactionDesc": "Test Transaction"
         };
