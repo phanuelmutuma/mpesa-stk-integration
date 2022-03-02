@@ -82,12 +82,92 @@ As our host machine acts as the server we use `http://localhost:3000/api/v1/init
 
 For now you dont' have to worry about `Authentication` as it is already defined in the code. When going live or in Production however, ensure you set authorization paramaters as environment variables
 
+> Remember to change to your phone number in `PartyA` and `PhoneNumber`
 
+If all goes well you should see this
+
+![response](http://url/to/img.png)
+
+and after a few seconds an stk push will be sent to your phone.
+ 
+![stk_push](http://url/to/img.png)
+
+
+
+
+### Response
+
+With your call back url configured properly, ensure you create an index.php file in your file server/manager (if you are using cpanel) or any other hosting provider
+it is advised that you create a new folder called `/callback` (Optional name) to better manage your urls, or create a subdomain (Even better). 
+
+The webhook will be sent to our callback url. To receive the json response our php file should look like this
+
+
+```sh
+<?php
+
+header("Content-Type:application/json");
+
+if (!$request=file_get_contents('php://input')) {
+ echo "Invalid input"; 
+ exit();
+} 
+
+$json_data = json_decode($request, true);
+
+# Print the output which you obviously will never see it :) but you can save it to your database (MYSQL)
+echo 'Amount =' . $json_data['Body']['stkCallback']['CallbackMetadata']['Item'][0]['Value']."<br>";
+echo 'MpesaReceiptNumber =' .$json_data['Body']['stkCallback']['CallbackMetadata']['Item'][1]['Value']."<br>";
+echo 'TransactionDate =' .$json_data['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value']."<br>";
+echo 'PhoneNumber =' .$json_data['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value']."<br>";
+
+# Save the data to you database
+ $sql="INSERT INTO mpesa_payments( 
+     Amount,
+     MpesaReceiptNumber,
+     TransactionDate,
+     PhoneNumber
+ )  
+ VALUES  
+ ( 
+     '$amount',
+     '$mpesareceipt', 
+     '$transactiondate', 
+     '$phonenumber'
+ )";
+
+# You can also save the json response as a json file
+$file = fopen('data.json','w');  
+fwrite($file, $request);
+fclose($file);
+
+# and read the file later when you directly call the url
+$json = file_get_contents('data.json');
+$json_data = json_decode($json, true);
+
+echo 'Amount =' . $json_data['Body']['stkCallback']['CallbackMetadata']['Item'][0]['Value']."<br>";
+echo 'MpesaReceiptNumber =' .$json_data['Body']['stkCallback']['CallbackMetadata']['Item'][1]['Value']."<br>";
+echo 'TransactionDate =' .$json_data['Body']['stkCallback']['CallbackMetadata']['Item'][3]['Value']."<br>";
+echo 'PhoneNumber =' .$json_data['Body']['stkCallback']['CallbackMetadata']['Item'][4]['Value']."<br>";
+
+?>
+```
+
+Aaannnd... Thats it.
+
+
+## Deployment and Integration
+
+I recommend [`Heroku`](https://www.heroku.com/) as a go to for hosting your API and node files. This will cost you some time however as you may need to also integrate Git for CI/CD but it will be worth it.
+
+This is also not the only option. The faster option is to use URLs. You can initialize the request from a REST API client on your preferred platform. For Web you can use Express and Router (NodeJS) and many others. Androi we have Volley and the like. Feel free to look out for more.
+
+The Callback however should be a URL (as the mpesa STK requires a fully qualified domain name) so running the callback on localhost won't work.
 
 
 ## Contribute
 
-If you think this could be better, please [open an issue](https://github.com/phanuelmutuma/mpesa-stk-integration/issues/new)!
+If you think this could be better, or facing an issue please [open an issue](https://github.com/phanuelmutuma/mpesa-stk-integration/issues/new)!
 
 Please note that all interactions in [@Phanuel Mutuma](https://github.com/phanuelmutuma) fall under our [Code of Conduct](CODE_OF_CONDUCT.md).
 
